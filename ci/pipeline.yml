@@ -1,0 +1,48 @@
+---
+groups:
+- name: test-group
+  jobs:
+    - test1
+    - test2
+jobs:
+- name: test1
+  serial: true
+  plan:
+  - aggregate:
+    - trigger: false
+      get: my-resource
+
+  - task: run
+    file: my-resource/ci/tasks/run.yml
+
+  - put: my-s3
+    params: {from: helloWorld}
+
+jobs:
+- name: test2
+  serial: true
+  plan:
+  - aggregate:
+    - trigger: false
+      get: my-resource
+
+  - task: run
+    file: my-resource/ci/tasks/run.yml
+
+  - put: my-s3
+    params: {from: helloWorld}
+
+resources:
+- name: my-resource
+  type: git
+  source:
+    uri: git@github.com:datianshi/test-pipeline.git
+    branch: master
+    private_key: {{private_key}}
+- name: my-s3
+  type: s3
+  source:
+    regexp: helloWorld
+    bucket: test-concourse-pipeline
+    access_key_id: {{s3_access_key}}
+    secret_access_key: {{s3_secret_key}}
