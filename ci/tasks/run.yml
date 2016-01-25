@@ -3,5 +3,6 @@ platform: linux
 image: docker:///boshcpi/azure-cpi-release
 inputs:
   - name: my-resource
+  - name: my-s3
 run:
   path: my-resource/ci/tasks/run.sh
