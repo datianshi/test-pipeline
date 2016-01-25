@@ -18,7 +18,6 @@ jobs:
   - put: my-s3
     params: {from: helloWorld}
 
-jobs:
 - name: test2
   serial: true
   plan:
