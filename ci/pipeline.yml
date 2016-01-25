@@ -11,12 +11,14 @@ jobs:
   - aggregate:
     - trigger: false
       get: my-resource
+    - trigger: false
+      get: my-s3
 
   - task: run
     file: my-resource/ci/tasks/run.yml
 
   - put: my-s3
-    params: {from: helloWorld}
+    params: {from: my-resource/out/helloWorld}
 
 - name: test2
   serial: true
