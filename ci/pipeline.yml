@@ -31,6 +31,9 @@ jobs:
   - task: run
     file: my-resource/ci/tasks/echo.yml
 
+  - put: my-s3
+    params: {from: helloWorld}    
+
   # - put: my-s3
   #   params: {from: helloWorld}
 
