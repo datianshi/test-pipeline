@@ -2,6 +2,6 @@
 set -e
 
 cat my-s3/helloWorld
-mkdir out
+mkdir -p out
 
 echo "Hello World2...." > out/helloWorld
